@@ -110,3 +110,68 @@ The project will be considered successful if it achieves the following objective
 - Web application only (no Android or iOS application).
 - Internet connection is required.
 - Receipt scanning and OCR are outside the scope of the MVP.
+
+# MoSCoW Prioritization
+
+## Must Have (M)
+
+These are essential features without which the application cannot function.
+
+| Feature | Reason |
+|----------|--------|
+| User Registration & Login | Required for secure access |
+| Create Expense Groups | Core functionality |
+| Add Members to Group | Enables shared expenses |
+| Add Shared Expense | Primary feature |
+| Equal Expense Split | Core calculation |
+| Custom Expense Split | Supports flexible sharing |
+| Automatic Balance Calculation | Eliminates manual calculations |
+| Dashboard Overview | Displays user balances |
+| Expense History | Tracks previous expenses |
+| Settle Outstanding Payments | Completes expense lifecycle |
+
+---
+
+## Should Have (S)
+
+Important features that improve usability but are not essential for the MVP.
+
+| Feature | Reason |
+|----------|--------|
+| Edit Expense | Correct mistakes |
+| Delete Expense | Remove incorrect entries |
+| Expense Categories | Better organization |
+| Monthly Expense Summary | Spending analysis |
+| Spending Charts | Better visualization |
+| Group Management | Modify group information |
+| Settlement History | View completed payments |
+
+---
+
+## Could Have (C)
+
+Useful enhancements that improve user experience.
+
+| Feature | Reason |
+|----------|--------|
+| Receipt Upload | Store bill images |
+| Dark Mode | Better UI experience |
+| Budget Tracking | Monitor monthly spending |
+| Pending Payment Reminders | Improve settlements |
+| Profile Picture | Personalization |
+| Search & Filter Expenses | Easier navigation |
+
+---
+
+## Won't Have (W)
+
+Features intentionally excluded from the first release.
+
+| Feature | Reason |
+|----------|--------|
+| Online Payment Gateway | Outside project scope |
+| UPI Integration | Future enhancement |
+| Mobile Application | Web-only project |
+| Multi-Currency Support | INR only |
+| OCR Receipt Scanning | Future work |
+| AI Spending Prediction | Advanced feature |
