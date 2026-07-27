@@ -1,0 +1,1 @@
+# SplitEase-Smart-Shared-Expense-Management-System-for-Students
