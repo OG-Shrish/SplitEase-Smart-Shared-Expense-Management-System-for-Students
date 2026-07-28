@@ -175,3 +175,90 @@ Features intentionally excluded from the first release.
 | Multi-Currency Support | INR only |
 | OCR Receipt Scanning | Future work |
 | AI Spending Prediction | Advanced feature |
+
+
+
+## Branching Strategy
+
+This project follows **GitHub Flow**:
+
+- `main` is always deployable/stable.
+- New work happens on feature branches named `feature/<short-description>` (e.g. `feature/expense-split-logic`, `feature/auth-jwt`).
+- Bug fixes use `fix/<short-description>`.
+- Commit early, push often, open a Pull Request into `main` when ready.
+- PRs are reviewed (self-review is fine for solo project) before merging.
+- Delete the branch after merging to keep things clean.
+
+Example:
+```bash
+git checkout -b feature/expense-split-logic
+# make changes
+git add .
+git commit -m "feat: add equal and custom expense split logic"
+git push origin feature/expense-split-logic
+# open PR on GitHub, merge into main
+```
+
+---
+
+## Local Development Tools
+
+- **Node.js**: v20.x
+- **Package manager**: npm
+- **Frontend**: Next.js (App Router), Tailwind CSS
+- **Backend**: Node.js + Express
+- **Database**: MongoDB (via Docker container)
+- **Containerization**: Docker + Docker Compose
+- **Code editor**: VS Code
+- **API testing**: Postman / Thunder Client
+- **Version control**: Git + GitHub
+
+---
+
+## Quick Start – Local Development
+
+### Prerequisites
+- Docker Desktop installed and running
+- Git installed
+
+### Steps
+
+1. Clone the repository:
+```bash
+git clone https://github.com/ABHI2005jeet/SplitEase.git
+cd SplitEase
+```
+
+2. Create a `.env` file inside `server/` with:
+```
+MONGO_URI=mongodb://mongo:27017/splitease
+JWT_SECRET=your_jwt_secret_here
+PORT=5000
+```
+
+3. Build and start all services with Docker Compose:
+```bash
+docker-compose up --build
+```
+
+4. Once running, access:
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:5000](http://localhost:5000)
+
+5. To stop all services:
+```bash
+docker-compose down
+```
+
+### Running without Docker (optional, for quick local testing)
+```bash
+# Terminal 1 - backend
+cd server
+npm install
+npm run dev
+
+# Terminal 2 - frontend
+cd client
+npm install
+npm run dev
+```
