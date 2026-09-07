@@ -222,8 +222,33 @@ const deleteExpense = async (req, res) => {
   }
 };
 
+// @desc    Get all expenses for the logged in user across their groups
+// @route   GET /api/expenses
+// @access  Private
+const getUserExpenses = async (req, res) => {
+  try {
+    const userGroups = await Group.find({ members: req.user.id });
+    const groupIds = userGroups.map(g => g._id);
+
+    const expenses = await Expense.find({ group: { $in: groupIds } })
+      .populate('paidBy', 'name email')
+      .populate('group', 'name')
+      .populate('participants', 'name email')
+      .populate('splits.user', 'name email')
+      .sort('-date');
+
+    res.status(200).json({
+      success: true,
+      data: expenses
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   createExpense,
+  getUserExpenses,
   getGroupExpenses,
   getExpenseById,
   updateExpense,

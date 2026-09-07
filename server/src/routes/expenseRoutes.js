@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   createExpense,
+  getUserExpenses,
   getGroupExpenses,
   getExpenseById,
   updateExpense,
@@ -9,7 +10,9 @@ const {
 } = require('../controllers/expenseController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.post('/', protect, createExpense);
+router.route('/')
+  .post(protect, createExpense)
+  .get(protect, getUserExpenses);
 router.get('/group/:groupId', protect, getGroupExpenses);
 router.route('/:id')
   .get(protect, getExpenseById)

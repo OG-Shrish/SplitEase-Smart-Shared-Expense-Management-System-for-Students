@@ -130,7 +130,50 @@ const getSimplifiedDebts = async (req, res) => {
   }
 };
 
+// @desc    Get user's balances summary across all groups
+// @route   GET /api/balances
+// @access  Private
+const getUserBalances = async (req, res) => {
+  try {
+    const userGroups = await Group.find({ members: req.user.id }).populate('members', 'name email');
+    const groupSummaries = [];
+    let totalOwed = 0;
+    let totalOwe = 0;
+
+    for (const group of userGroups) {
+      const rawBalances = await calculateRawBalances(group._id);
+      const myBal = rawBalances[req.user.id.toString()] || 0;
+      if (myBal > 0) totalOwed += myBal;
+      else if (myBal < 0) totalOwe += Math.abs(myBal);
+
+      const memberBalances = group.members.map(member => ({
+        user: member,
+        balance: Number((rawBalances[member._id.toString()] || 0).toFixed(2))
+      }));
+
+      groupSummaries.push({
+        group: { _id: group._id, name: group.name, description: group.description },
+        myBalance: Number(myBal.toFixed(2)),
+        members: memberBalances
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        totalOwed: Number(totalOwed.toFixed(2)),
+        totalOwe: Number(totalOwe.toFixed(2)),
+        netBalance: Number((totalOwed - totalOwe).toFixed(2)),
+        groups: groupSummaries
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   getBalances,
-  getSimplifiedDebts
+  getSimplifiedDebts,
+  getUserBalances
 };
