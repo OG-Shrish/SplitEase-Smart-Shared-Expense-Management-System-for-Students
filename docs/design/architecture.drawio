@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-07T00:00:00.000Z" agent="SplitEase" version="21.0.0" type="device">
+  <diagram id="arch-diag" name="SplitEase High-Level Architecture">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="layer1" value="Presentation Tier (Client - Next.js App Router)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;fontStyle=1;align=left;spacingLeft=10;fontSize=14;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="340" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="Landing Page &amp; Auth&#xa;• /page.js&#xa;• /login &amp; /register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1E40AF;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="45" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="Dashboard Views&#xa;• /dashboard (Balances, Group Grid)&#xa;• /groups/[id] (Expense Stream &amp; Debts)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1E40AF;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="125" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="Interactive Modal Components&#xa;• Add Expense Modal (Equal/Custom/%)&#xa;• Settlement Confirmation Modal&#xa;• Add Member Modal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1E40AF;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="215" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="UI Design System&#xa;• Tailwind CSS &amp; Lucide React Icons&#xa;• Reusable Card, Button, Input components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1E40AF;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="315" width="300" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" value="Auth Context &amp; Client State&#xa;• React Context API&#xa;• JWT Token in LocalStorage &amp; Auto-Refresh" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#93C5FD;fontColor=#1E40AF;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="400" width="300" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="Axios HTTP Service (lib/api.js)&#xa;• Request/Response Interceptors&#xa;• Automatic Authorization: Bearer &lt;JWT&gt;&#xa;• Unified Network Error Handling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontStyle=1;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="485" width="300" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" value="Client Docker Container&#xa;• Port 3000 (Node.js 20 Alpine)&#xa;• Next.js Production Build" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#F59E0B;fontColor=#92400E;fontSize=12;" vertex="1" parent="layer1">
+          <mxGeometry x="20" y="590" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer2" value="Application / Business Logic Tier (Express REST API)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#22C55E;fontStyle=1;align=left;spacingLeft=10;fontSize=14;fontColor=#14532D;" vertex="1" parent="1">
+          <mxGeometry x="450" y="40" width="440" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" value="HTTP Server &amp; Middleware Gateway&#xa;• Express.js Server (Port 5000)&#xa;• CORS Policy &amp; Body Parser&#xa;• authMiddleware (JWT Token Validation &amp; Route Guard)&#xa;• Global Error Handling Middleware" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontStyle=1;fontSize=12;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="45" width="400" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" value="authController &amp; authRoutes&#xa;• POST /api/auth/register (bcrypt 10 rounds)&#xa;• POST /api/auth/login (JWT Sign)&#xa;• GET /api/auth/me" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#86EFAC;fontColor=#166534;fontSize=11;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="155" width="400" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" value="groupController &amp; groupRoutes&#xa;• POST /api/groups (Create with Admin)&#xa;• GET /api/groups (User's Joined Groups)&#xa;• POST /api/groups/:id/members (Member Invites)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#86EFAC;fontColor=#166534;fontSize=11;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="235" width="400" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" value="expenseController &amp; expenseRoutes&#xa;• POST /api/expenses (Split calculation: Equal, Custom, %)&#xa;• Floating-point rounding discrepancy adjustment&#xa;• GET /api/expenses/group/:id (Chronological log)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#86EFAC;fontColor=#166534;fontSize=11;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="315" width="400" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" value="balanceController (Debt Simplification Engine)&#xa;• GET /api/balances/group/:id (Raw net balance ledger)&#xa;• GET /api/balances/group/:id/simplify&#xa;  → Greedy Two-Pointer Algorithm (O(N log N))&#xa;  → Eliminates circular transactions to max N-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF08A;strokeColor=#CA8A04;fontColor=#713F12;fontStyle=1;fontSize=11;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="405" width="400" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" value="settlementController &amp; analyticsController&#xa;• POST /api/settlements (Mark Dues Completed)&#xa;• GET /api/analytics/group/:id (Category Breakdown)&#xa;• GET /api/analytics/group/:id/monthly (Spending Trends)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#86EFAC;fontColor=#166534;fontSize=11;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="505" width="400" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" value="Server Docker Container&#xa;• Port 5000 (Node.js 20 Express)&#xa;• Health check endpoint /" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#F59E0B;fontColor=#92400E;fontSize=12;" vertex="1" parent="layer2">
+          <mxGeometry x="20" y="600" width="400" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer3" value="Data Tier (Persistence - MongoDB)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAF5FF;strokeColor=#A855F7;fontStyle=1;align=left;spacingLeft=10;fontSize=14;fontColor=#581C87;" vertex="1" parent="1">
+          <mxGeometry x="960" y="40" width="300" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" value="Mongoose ODM Layer&#xa;• Schema Validations &amp; Hooks&#xa;• Relation References (ObjectId)&#xa;• Index optimization (email, group)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E8FF;strokeColor=#9333EA;fontColor=#581C87;fontStyle=1;fontSize=12;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="45" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" value="User Collection&#xa;• name, email (unique)&#xa;• password (hash, select:false)&#xa;• timestamps" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFFFFF;strokeColor=#C084FC;fontColor=#6B21A8;fontSize=11;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="135" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" value="Group Collection&#xa;• name, description&#xa;• createdBy (ref: User)&#xa;• members: [ref: User]&#xa;• timestamps" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFFFFF;strokeColor=#C084FC;fontColor=#6B21A8;fontSize=11;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="235" width="260" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" value="Expense Collection&#xa;• title, amount, category&#xa;• paidBy (ref: User), group (ref: Group)&#xa;• splits: [{ user, amount, % }]&#xa;• date, timestamps" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFFFFF;strokeColor=#C084FC;fontColor=#6B21A8;fontSize=11;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="350" width="260" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" value="Settlement Collection&#xa;• fromUser, toUser (refs)&#xa;• amount, group (ref: Group)&#xa;• status: 'Pending'|'Completed'&#xa;• settledAt, timestamps" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFFFFF;strokeColor=#C084FC;fontColor=#6B21A8;fontSize=11;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="475" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="d6" value="MongoDB 7.0 Container&#xa;• Port 27017 (Persistent Volume)&#xa;• Network: splitease-net" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#F59E0B;fontColor=#92400E;fontSize=12;" vertex="1" parent="layer3">
+          <mxGeometry x="20" y="600" width="260" height="55" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow1" value="REST / JSON over HTTP&#xa;Authorization: Bearer JWT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E40AF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c6" target="a1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="567" />
+              <mxPoint x="410" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow2" value="Mongoose Queries &amp; Updates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#9333EA;strokeWidth=2;fontColor=#6B21A8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a4" target="d1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="925" y="392" />
+              <mxPoint x="925" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

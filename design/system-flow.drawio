@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-07T00:00:00.000Z" agent="SplitEase" version="21.0.0" type="device">
+  <diagram id="sys-flow-diag" name="Expense Creation &amp; Settlement Sequence">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="actor1" value="Student User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#E0E7FF;strokeColor=#4F46E5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="60" width="40" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="life1" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeColor=#9CA3AF;fillColor=#F3F4F6;" vertex="1" parent="1">
+          <mxGeometry x="95" y="160" width="10" height="580" as="geometry" />
+        </mxCell>
+
+        <mxCell id="box2" value="Next.js Client&#xa;(UI / Form)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="240" y="70" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="life2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeColor=#9CA3AF;fillColor=#F3F4F6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="10" height="580" as="geometry" />
+        </mxCell>
+
+        <mxCell id="box3" value="Express API&#xa;(Auth &amp; Controller)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#22C55E;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="70" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="life3" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeColor=#9CA3AF;fillColor=#F3F4F6;" vertex="1" parent="1">
+          <mxGeometry x="525" y="160" width="10" height="580" as="geometry" />
+        </mxCell>
+
+        <mxCell id="box4" value="Debt Simplification&#xa;(balanceController)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF08A;strokeColor=#CA8A04;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="life4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeColor=#9CA3AF;fillColor=#F3F4F6;" vertex="1" parent="1">
+          <mxGeometry x="760" y="160" width="10" height="580" as="geometry" />
+        </mxCell>
+
+        <mxCell id="box5" value="MongoDB Database&#xa;(Mongoose Models)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAF5FF;strokeColor=#A855F7;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="920" y="70" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="life5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeColor=#9CA3AF;fillColor=#F3F4F6;" vertex="1" parent="1">
+          <mxGeometry x="985" y="160" width="10" height="580" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1" value="1. Enter amount, split type &amp; participants" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#4F46E5;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="105" y="190" as="sourcePoint" />
+            <mxPoint x="300" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m2" value="2. POST /api/expenses (with Bearer JWT)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#2563EB;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="230" as="sourcePoint" />
+            <mxPoint x="525" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m3" value="3. Validate split sums &amp; penny rounding" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#16A34A;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="270" as="sourcePoint" />
+            <mxPoint x="580" y="290" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="580" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m4" value="4. Expense.create(payload)" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#9333EA;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="320" as="sourcePoint" />
+            <mxPoint x="985" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m5" value="5. 201 Created &amp; Populated Doc" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#9333EA;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="985" y="360" as="sourcePoint" />
+            <mxPoint x="535" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m6" value="6. Response &amp; Trigger Balance Refresh" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#2563EB;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="400" as="sourcePoint" />
+            <mxPoint x="310" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m7" value="7. GET /api/balances/group/:id/simplify" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#2563EB;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="440" as="sourcePoint" />
+            <mxPoint x="525" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m8" value="8. Fetch Expenses &amp; Settlements" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#9333EA;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="470" as="sourcePoint" />
+            <mxPoint x="985" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m9" value="9. Greedy Two-Pointer Matching" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#CA8A04;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="520" as="sourcePoint" />
+            <mxPoint x="760" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m10" value="10. Minimal Transactions List" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#CA8A04;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="560" as="sourcePoint" />
+            <mxPoint x="535" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m11" value="11. Render Simplified Settle Cards" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#2563EB;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="600" as="sourcePoint" />
+            <mxPoint x="310" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m12" value="12. Click 'Settle' -&gt; POST /api/settlements" style="html=1;verticalAlign=bottom;endArrow=block;strokeColor=#DC2626;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="105" y="650" as="sourcePoint" />
+            <mxPoint x="525" y="650" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m13" value="13. Ledger Balanced to ₹0" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeColor=#16A34A;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="700" as="sourcePoint" />
+            <mxPoint x="105" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

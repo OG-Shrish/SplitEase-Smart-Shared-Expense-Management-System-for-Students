@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-07T00:00:00.000Z" agent="SplitEase" version="21.0.0" type="device">
+  <diagram id="db-schema-diag" name="SplitEase Database Schema (ERD)">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="u1" value="User (users)&#xa;---------------------------------------&#xa;• _id : ObjectId &lt;PK&gt;&#xa;• name : String [required]&#xa;• email : String [required, unique]&#xa;• password : String [hash, select:false]&#xa;• createdAt : Date&#xa;• updatedAt : Date" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;align=left;spacingLeft=12;fontStyle=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="280" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="g1" value="Group (groups)&#xa;---------------------------------------&#xa;• _id : ObjectId &lt;PK&gt;&#xa;• name : String [required]&#xa;• description : String&#xa;• createdBy : ObjectId &lt;FK:User&gt;&#xa;• members : [ObjectId &lt;FK:User&gt;]&#xa;• createdAt : Date&#xa;• updatedAt : Date" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#16A34A;fontColor=#14532D;align=left;spacingLeft=12;fontStyle=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="80" width="290" height="165" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="Expense (expenses)&#xa;---------------------------------------&#xa;• _id : ObjectId &lt;PK&gt;&#xa;• title : String [required]&#xa;• amount : Number [required]&#xa;• category : Enum [Rent, Groceries...]&#xa;• description : String&#xa;• paidBy : ObjectId &lt;FK:User&gt;&#xa;• group : ObjectId &lt;FK:Group&gt;&#xa;• participants : [ObjectId &lt;FK:User&gt;]&#xa;• splitType : 'Equal'|'Custom'|'%'&#xa;• splits : [Embedded SplitSubdocument]&#xa;• date : Date&#xa;• createdAt, updatedAt : Date" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAF5FF;strokeColor=#9333EA;fontColor=#581C87;align=left;spacingLeft=12;fontStyle=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="380" width="310" height="230" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s1" value="Embedded: splitSchema&#xa;---------------------------------------&#xa;• user : ObjectId &lt;FK:User&gt;&#xa;• amount : Number [required]&#xa;• percentage : Number [optional]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDF4FF;strokeColor=#C026D3;fontColor=#701A75;align=left;spacingLeft=12;dashed=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="660" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="set1" value="Settlement (settlements)&#xa;---------------------------------------&#xa;• _id : ObjectId &lt;PK&gt;&#xa;• fromUser : ObjectId &lt;FK:User&gt;&#xa;• toUser : ObjectId &lt;FK:User&gt;&#xa;• amount : Number [required]&#xa;• group : ObjectId &lt;FK:Group&gt;&#xa;• status : 'Pending'|'Completed'&#xa;• settledAt : Date&#xa;• createdAt, updatedAt : Date" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF2F2;strokeColor=#DC2626;fontColor=#7F1D1D;align=left;spacingLeft=12;fontStyle=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="380" width="290" height="190" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel1" value="1 to N (Creator)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E40AF;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="u1" target="g1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel2" value="N to M (Members)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#16A34A;strokeWidth=2;fontColor=#14532D;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="g1" target="u1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel3" value="1 to N (Paid By)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#9333EA;strokeWidth=2;fontColor=#581C87;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="u1" target="e1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel4" value="1 to N (Group Expenses)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#9333EA;strokeWidth=2;fontColor=#581C87;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="g1" target="e1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel5" value="Contains Array" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#C026D3;strokeWidth=2;dashed=1;fontColor=#701A75;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel6" value="1 to N (Group Settlements)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=11;strokeColor=#DC2626;strokeWidth=2;fontColor=#7F1D1D;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="g1" target="set1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
