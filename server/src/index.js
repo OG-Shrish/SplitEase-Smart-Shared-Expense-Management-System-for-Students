@@ -12,7 +12,28 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim().replace(/\/$/, ''))
+  : null;
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || !allowedOrigins || allowedOrigins.includes('*')) {
+        return callback(null, true);
+      }
+      const normalized = origin.replace(/\/$/, '');
+      if (
+        allowedOrigins.includes(normalized) ||
+        normalized === 'http://localhost:3000'
+      ) {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
